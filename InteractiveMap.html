@@ -1,0 +1,206 @@
+<!doctype html>
+<html>
+<head>
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<title>Milkweed Map</title>
+	<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+	<link rel="stylesheet" href="https://unpkg.com/leaflet@1.4.0/dist/leaflet.css" integrity="sha512-puBpdR0798OZvTTbP4A8Ix/l+A4dHDD0DGqYW6RQ+9jxkRFclaxxQb/SJAWZfWAkuyeQUytO7+7N4QKrDh+drA==" crossorigin=""/>
+	<!-- Make sure you put this AFTER Leaflet's CSS -->
+	<script src="https://unpkg.com/leaflet@1.4.0/dist/leaflet.js" integrity="sha512-QVftwZFqvtRNi0ZyCtsznlKSWOStnDORoefr1enyq5mVL4tmKB3S/EnC3rRJcxCPavG10IcrVGSmPh6Qw5lwrg==" crossorigin=""></script>
+	<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+	<style>
+	body {
+   background-color: white;
+   width: 80%;
+   margin: auto;
+}
+
+h1 {
+   font-family:bree serif;
+   color:black;
+   
+}
+
+#header {
+font-size:1.8em;
+}
+
+
+#linkArea {
+margin-bottom: 14px;
+}
+
+#linkArea ul {
+  list-style-type: none;
+  margin: 0;
+  padding: 0;
+  overflow: hidden;
+  background-color: #ff9900;
+  margin-top:15px;
+}
+
+#linkArea li {
+  float: left;
+}
+
+#linkArea li a {
+  display: block;
+  color: black;
+  text-align: center;
+  padding: 14px 16px;
+  text-decoration: none;
+}
+
+#linkArea li a:hover {
+  background-color: #ffb84d;
+}
+
+	#mapid { height: 350px; width:100%; }
+	
+button{
+  background-color: #ff9900;
+  border: none;
+  color: black;
+  text-align: center;
+  text-decoration: none;
+  display: inline-block;
+  font-size: 16px;
+  margin: 4px 2px;
+  cursor: pointer;
+  padding: 10px 24px;
+}
+
+	</style>
+	
+</head>
+<body>
+<div id="header">
+
+<h1>Milkweed Map</h1>
+</div>
+<div id="linkArea">
+<ul>
+<li><a href="index.html">Hompage</a></li>
+<li><a href="InteractiveMap.html">Interactive Map</a></li>
+<li><a href="MilkweedID.html">Milkweed ID</a></li>
+<li><a href="https://www.monarchwatch.org/" target="_blank">Monarch Watch</a></li>
+</ul>
+</div>
+<div id="mapid"></div>
+
+<button id="submitLoc" onclick="getLocation()">Submit This Location</button>
+
+<div style="display:none">
+<form id="test-form">
+  
+  <div>
+    <label>Lat</label>
+    <input type="text" name="lat" placeholder="lat"/>
+  </div>
+
+  <div>
+    <label>Lon</label>
+    <input type="text" name="lon" placeholder="lon"/>
+  </div>
+
+  <div id="submitForm">
+    <button type="submit"id="submit-form">Submit</button>
+  </div>
+
+</form>
+</div>
+<div id="footerArea">
+<p><a href="https://www.facebook.com/Springdale-for-Monarchs-1603250803326776/about" target="_blank">Springdale For Monarchs</a></p>
+</div>
+<script>
+var mymap = L.map('mapid').setView([36.1867, -94.1288], 11);
+
+L.tileLayer('https://api.tiles.mapbox.com/v4/{id}/{z}/{x}/{y}.png?access_token=pk.eyJ1IjoibWFwYm94IiwiYSI6ImNpejY4NXVycTA2emYycXBndHRqcmZ3N3gifQ.rJcFIG214AriISLbB6B5aw', {
+    attribution: 'Map data &copy; <a href="https://www.openstreetmap.org/">OpenStreetMap</a> contributors, <a href="https://creativecommons.org/licenses/by-sa/2.0/">CC-BY-SA</a>, Imagery © <a href="https://www.mapbox.com/">Mapbox</a>',
+    maxZoom: 18,
+    id: 'mapbox.streets',
+    accessToken: 'your.mapbox.access.token'
+}).addTo(mymap);
+
+
+// ID of the Google Spreadsheet
+	var googleDocID="14o7f3HeGIeYDZK1Ygg__CYRdurmnfMt7lGueYG_iuyU";
+	var googleDocIDPage=1;
+	
+
+
+
+	// Make sure it is public or set to Anyone with link can view 
+	var url2 = "https://spreadsheets.google.com/feeds/list/" + googleDocID + "/" + googleDocIDPage + "/public/values?alt=json";
+
+	var request = new XMLHttpRequest();
+	request.open('GET', url2, true);
+
+	request.onload = function() {
+	if (request.status >= 200 && request.status < 400) {
+    // Success!
+    var data = JSON.parse(request.responseText);
+	var entry = data.feed.entry;
+
+	for(i=0; i < entry.length; i++){
+	var marker = L.marker([entry[i].gsx$lat.$t, entry[i].gsx$lon.$t]).addTo(mymap);
+	}
+	
+	}
+	}
+	
+	request.onerror = function() {
+  // There was a connection error of some sort
+	};
+
+	request.send();
+	
+//submit the form	
+var $form = $('form#test-form'),
+url = 'https://script.google.com/macros/s/AKfycbx5567DXSzIiw2AaLwwepZcdRQ1i_IvUxsOiC1BHDlacSFC6x3O/exec'
+
+$('#submit-form').on('click', function(e) {
+  e.preventDefault();
+  var jqxhr = $.ajax({
+    url: url,
+    method: "GET",
+    dataType: "json",
+    data: $form.serializeArray()
+  }).success(
+    // do something
+  );
+})
+
+
+
+function getLocation() {
+  if (navigator.geolocation) {
+    navigator.geolocation.getCurrentPosition(submitPosition);
+  } else { 
+    alert("Geolocation is not supported by this browser.");
+  }
+}
+
+function submitPosition(position) {
+  form = document.getElementById("test-form");
+  lat = position.coords.latitude;
+  lon = position.coords.longitude;
+  lat = parseFloat(lat);
+  lon = parseFloat(lon);
+  input = form.getElementsByTagName("input");
+  if (Number.isFinite(lat) === true && Number.isFinite(lon) === true){
+  input[0].value = lat;
+  input[1].value = lon;
+  
+	if (input[0].value != "" && input[1].value != "")
+	{
+		document.getElementById("submit-form").click();
+	}
+	
+	}
+	else{ alert("Please use a number"); }
+}
+</script>
+</body>
+</html>
+

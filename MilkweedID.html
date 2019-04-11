@@ -1,0 +1,184 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Milkweed Identification</title>
+<style>
+body {
+   background-color: white;
+   width: 80%;
+   margin: auto;
+}
+
+h1 {
+   font-family:bree serif;
+   color:black;
+   
+}
+
+#header {
+font-size:1.8em;
+}
+
+
+#linkArea {
+margin-bottom: 14px;
+}
+
+#linkArea ul {
+  list-style-type: none;
+  margin: 0;
+  padding: 0;
+  overflow: hidden;
+  background-color: #ff9900;
+  margin-top:15px;
+}
+
+#linkArea li {
+  float: left;
+}
+
+#linkArea li a {
+  display: block;
+  color: black;
+  text-align: center;
+  padding: 14px 16px;
+  text-decoration: none;
+}
+
+#linkArea li a:hover {
+  background-color: #ffb84d;
+}
+
+#imageArea img {
+  margin-right: auto;
+  display: inline-block;
+  width: 300px;
+  padding: 5px;
+}
+#imageArea p {
+font-size: 20px;
+}
+.accordion {
+  background-color: #ff9900;
+  color: #444;
+  cursor: pointer;
+  padding: 18px;
+  width: 100%;
+  text-align: left;
+  border: none;
+  outline: none;
+  transition: 0.4s;
+}
+
+/* Add a background color to the button if it is clicked on (add the .active class with JS), and when you move the mouse over it (hover) */
+.active, .accordion:hover {
+  background-color: #ffb84d;
+}
+
+/* Style the accordion panel. Note: hidden by default */
+.panel {
+  padding: 0 18px;
+  background-color: white;
+  display: none;
+  overflow: hidden;
+}
+</style>
+</head>
+<body>
+<div id="header">
+
+<h1>Milkweed ID</h1>
+</div>
+<div id="linkArea">
+<ul>
+<li><a href="index.html">Hompage</a></li>
+<li><a href="InteractiveMap.html">Interactive Map</a></li>
+<li><a href="MilkweedID.html">Milkweed ID</a></li>
+<li><a href="https://www.monarchwatch.org/" target="_blank">Monarch Watch</a></li></ul>
+</div>
+<div id="imageArea">
+<button class="accordion active"><h2>Asclepias Hirtella (Tall Green Milkweed)</h2></button>
+<div id="AsclepiasHirtella" class="panel" style="display: block;">
+<img src="images/TallGreenMilkweed/HirtellaBloom.jpg" alt="Trulli">
+<p>This is the bloom of Asclepias Hirtella.</p>
+<img src="images/TallGreenMilkweed/HirtellaSeedPod.jpg" alt="Trulli">
+<p>This is the seed pod of Asclepias Hirtella.</p>
+<img src="images/TallGreenMilkweed/HirtellaLeaves.jpg" alt="Trulli">
+<p>This is the leaf of Asclepias Hirtella.</p>
+<p></p>
+</div>
+
+<button class="accordion"><h2>Asclepias Syriaca (CommonMilkweed)</h2></button>
+<div id="AsclepiasSyriaca" class="panel">
+<img src="images/CommonMilkweed/CommonMilkweedBloom.jpg" alt="Trulli">
+<p>This is the bloom of Asclepias Syriaca.</p>
+<img src="images/CommonMilkweed/CommonMilkweedLeaf.jpg" alt="Trulli">
+<p>This is the leaf of Asclepias Syriaca.</p>
+<img src="images/CommonMilkweed/CommonMilkweedScale.jpg" alt="Trulli">
+<p>This is the size of Asclepias Syriaca.</p>
+</div>
+
+<button class="accordion"><h2>Asclepias Tuberosa (ButterflyWeed)</h2></button>
+<div id="AsclepiasTuberosa" class="panel">
+<img src="images/ButterflyWeed/ButterflyWeedBloom.jpg" alt="Trulli">
+<img src="images/ButterflyWeed/ButterflyWeedBloom2.jpg" alt="Trulli">
+<p>This is the bloom of Asclepias Tuberosa.</p>
+<img src="images/ButterflyWeed/ButterflyWeedLeaf.jpg" alt="Trulli">
+<p>This is the leaf of Asclepias Tuberosa.</p>
+<img src="images/ButterflyWeed/ButterflyWeedSeedPod.jpg" alt="Trulli">
+<p>This is the seed pod of Asclepias Tuberosa.</p>
+</div>
+
+<button class="accordion"><h2>Asclepias Viridis (Green Antlopehorn)</h2></button>
+<div id="AsclepiasViridis" class="panel">
+<img src="images/GreenAntelopehornMilkweed/GreenAntlopehornMilkweedBloom.jpg" alt="Trulli">
+<p>This is the bloom of Asclepias Viridis.</p>
+<img src="images/GreenAntelopehornMilkweed/FullPlantGreenAntlopehornMilkweed.jpg" alt="Trulli">
+<p>This is the size of Asclepias Viridis.</p>
+</div>
+
+<button class="accordion"><h2>Asclepias Incarnata (Swamp Milkweed)</h2></button>
+<div id="AsclepiasIncarnata" class="panel">
+<img src="images/SwampMilkweed/SwampMilkweedBloom.jpg" alt="Trulli">
+<p>This is the bloom of Asclepias Incarnata.</p>
+<img src="images/SwampMilkweed/SwampMilkweedLeaf.jpg" alt="Trulli">
+<p>This is the leaf of Asclepias Incarnata.</p>
+<img src="images/SwampMilkweed/SwampMilkweedSeedPod.jpg" alt="Trulli">
+<p>This is the seed pod of Asclepias Incarnata.</p>
+</div>
+
+
+</div>
+
+<div id="footerArea">
+<p><a href="https://www.facebook.com/Springdale-for-Monarchs-1603250803326776/about" target="_blank">Springdale For Monarchs</a></p>
+</div>
+
+<script>
+var acc = document.getElementsByClassName("accordion");
+var i;
+
+for (i = 0; i < acc.length; i++) {
+  acc[i].addEventListener("click", function() {
+    /* Toggle between adding and removing the "active" class,
+    to highlight the button that controls the panel */
+    this.classList.toggle("active");
+
+    /* Toggle between hiding and showing the active panel */
+    var panel = this.nextElementSibling;
+    if (panel.style.display === "block") {
+      panel.style.display = "none";
+    } else {
+      panel.style.display = "block";
+    }
+  });
+}
+</script>
+
+
+
+</body>
+</html>
+
+
